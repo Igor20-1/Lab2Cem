@@ -22,6 +22,7 @@
 
 **Диалоговое окно добавления нового реактива:**<br>
 ![Диалог добавления реактива](https://github.com/Igor20-1/Lab2Cem/blob/master/screenshots/AddReagent.png)
+<br>
 **Диалоговое окно добавления новой партии:**<br>
 ![Диалог добавления партии](https://github.com/Igor20-1/Lab2Cem/blob/master/screenshots/AddBatches.png)
 

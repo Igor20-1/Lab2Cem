@@ -20,7 +20,7 @@
 **Вкладка с партиями (бутылками):**
 ![Вкладка с партиями](https://github.com/Igor20-1/Lab2Cem/blob/master/screenshots/Batches.png)
 
-**Диалоговое окно добавления нового реактива:**
+**Диалоговое окно добавления нового реактива:**<br>
 ![Диалог добавления реактива](https://github.com/Igor20-1/Lab2Cem/blob/master/screenshots/AddReagent.png)
 
 <br>

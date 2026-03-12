@@ -2,7 +2,7 @@ package ru.yourteam.lab.domain;
 
 import java.time.Instant;
 
-public class Reagent {
+public class Reagent implements Identifiable {
     private long id;
     private String name;
     private String formula;

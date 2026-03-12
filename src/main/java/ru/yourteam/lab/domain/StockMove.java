@@ -2,7 +2,7 @@ package ru.yourteam.lab.domain;
 
 import java.time.Instant;
 
-public class StockMove {
+public class StockMove implements Identifiable {
     private long id;
     private long batchId;
     private StockMoveType type;

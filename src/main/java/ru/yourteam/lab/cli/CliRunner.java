@@ -5,12 +5,17 @@ import ru.yourteam.lab.exception.ValidationException;
 import ru.yourteam.lab.repository.BatchRepository;
 import ru.yourteam.lab.repository.MoveRepository;
 import ru.yourteam.lab.repository.ReagentRepository;
+import ru.yourteam.lab.repository.inmemory.InMemoryBatchRepository;
+import ru.yourteam.lab.repository.inmemory.InMemoryMoveRepository;
+import ru.yourteam.lab.repository.inmemory.InMemoryReagentRepository;
 import ru.yourteam.lab.service.BatchService;
 import ru.yourteam.lab.service.MoveService;
 import ru.yourteam.lab.service.ReagentService;
+import ru.yourteam.lab.storage.CsvStorage;
 import ru.yourteam.lab.validation.BatchValidator;
 import ru.yourteam.lab.validation.MoveValidator;
 import ru.yourteam.lab.validation.ReagentValidator;
+
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,16 +30,27 @@ public class CliRunner {
     private final ReagentService reagentService;
     private final BatchService batchService;
     private final MoveService moveService;
+    private final CsvStorage csvStorage;
 
-    public CliRunner() {
+    public CliRunner(String initialFilePath) {
         this.scanner = new Scanner(System.in);
-        ReagentRepository reagentRepo = new ReagentRepository();
-        BatchRepository batchRepo = new BatchRepository();
-        MoveRepository moveRepo = new MoveRepository();
+        ReagentRepository reagentRepo = new InMemoryReagentRepository();
+        BatchRepository batchRepo = new InMemoryBatchRepository();
+        MoveRepository moveRepo = new InMemoryMoveRepository();
 
         this.reagentService = new ReagentService(reagentRepo, new ReagentValidator());
         this.batchService = new BatchService(batchRepo, new BatchValidator(), reagentService);
         this.moveService = new MoveService(moveRepo, new MoveValidator(), batchService, batchRepo);
+        this.csvStorage = new CsvStorage(reagentRepo, batchRepo, moveRepo);
+
+        if (initialFilePath != null) {
+            try {
+                csvStorage.load(initialFilePath);
+                System.out.println("Данные успешно загружены из: " + initialFilePath);
+            } catch (Exception e) {
+                System.out.println("Не удалось загрузить начальный файл: " + e.getMessage());
+            }
+        }
     }
 
     public void run() {
@@ -59,6 +75,8 @@ public class CliRunner {
     private void routeCommand(List<String> args) {
         String command = args.get(0).toLowerCase();
         switch (command) {
+            case "save": handleSave(args); break;
+            case "load": handleLoad(args); break;
             case "reag_add": handleReagAdd(); break;
             case "reag_list": handleReagList(args); break;
             case "batch_add": handleBatchAdd(args); break;
@@ -70,7 +88,7 @@ public class CliRunner {
             case "move_list": handleMoveList(args); break;
             case "stock_report": handleStockReport(args); break;
             case "help":
-                System.out.println("Команды: reag_add, reag_list, batch_add, batch_list, batch_show, batch_update, batch_archive, move_add, move_list, stock_report");
+                System.out.println("Команды: reag_add, reag_list, batch_add, batch_list, batch_show, batch_update, batch_archive, move_add, move_list, stock_report, save, load");
                 break;
             default:
                 throw new ValidationException("неизвестная команда '" + command + "'");
@@ -90,6 +108,18 @@ public class CliRunner {
 
         Reagent created = reagentService.createReagent(name, formula, cas, hazard);
         System.out.println("OK reagent_id=" + created.getId());
+    }
+
+    private void handleSave(List<String> args) {
+        if (args.size() < 2) throw new ValidationException("укажите путь к файлу: save <path>");
+        csvStorage.save(args.get(1));
+        System.out.println("OK данные сохранены в " + args.get(1));
+    }
+
+    private void handleLoad(List<String> args) {
+        if (args.size() < 2) throw new ValidationException("укажите путь к файлу: load <path>");
+        csvStorage.load(args.get(1));
+        System.out.println("OK данные загружены из " + args.get(1));
     }
 
     private void handleReagList(List<String> args) {

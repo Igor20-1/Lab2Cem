@@ -2,7 +2,7 @@ package ru.yourteam.lab.domain;
 
 import java.time.Instant;
 
-public class ReagentBatch {
+public class ReagentBatch implements Identifiable {
     private long id;
     private long reagentId;
     private String label;

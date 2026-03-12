@@ -1,10 +1,11 @@
 package ru.yourteam.lab;
 
-import ru.yourteam.lab.cli.CliRunner;
+import javafx.application.Application;
+import ru.yourteam.lab.ui.LabApp;
 
 public class Main {
     public static void main(String[] args) {
-        CliRunner runner = new CliRunner();
-        runner.run();
+        // Запускаем JavaFX приложение
+        Application.launch(LabApp.class, args);
     }
 }

@@ -15,13 +15,13 @@
 *Ниже показаны основные экраны приложения. Чтобы вставить свои изображения, следуйте [этой инструкции](#-как-добавить-скриншоты-в-readme).*
 
 **Вкладка с реактивами:**
-![Вкладка с реактивами](https://raw.githubusercontent.com/Igor20-1/Lab2Cem/main/screenshots/Reagents.png)
+![Вкладка с реактивами](https://github.com/Igor20-1/Lab2Cem/master/screenshots/Reagents.png?raw=true)
 
 **Вкладка с партиями (бутылками):**
-![Вкладка с партиями](https://raw.githubusercontent.com/Igor20-1/Lab2Cem/main/screenshots/Batches.png)
+![Вкладка с партиями](https://github.com/Igor20-1/Lab2Cem/master/screenshots/Batches.png?raw=true)
 
 **Диалоговое окно добавления нового реактива:**
-![Диалог добавления реактива](https://raw.githubusercontent.com/Igor20-1/Lab2Cem/main/screenshots/AddReagent.png)
+![Диалог добавления реактива](https://github.com/Igor20-1/Lab2Cem/master/screenshots/AddReagent.png?raw=true)
 
 <br>
 
